@@ -1,0 +1,54 @@
+.container {
+    background: #646472;
+    display: inline-block;
+    border: #3a3a42 solid 10px;
+
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+#row1 {
+    height: 500px;
+    background: #9595af;
+}
+
+#row2 {
+    column-count: 2;
+    text-align: left;
+
+    padding: 5px;
+
+    border-top: #3a3a42 solid 10px;
+    border-bottom: #3a3a42 solid 10px;
+}
+
+#row3 { padding: 5px; }
+
+
+
+#randomBounce { width: 37px; }
+
+#balls {
+    width: 37px;
+    text-align: left;
+}
+
+#box {
+    padding: 10px;
+    display: inline-block;
+}
+
+#slider { width: 95%; }
+
+body {
+    color: #f8f8f8;
+    font-family: Andale Mono, monospace;
+}

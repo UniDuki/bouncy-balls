@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="index.css">
+
+    <script src="index.js"></script>
+
+</head>
+<body onLoad="init();">
+
+<div style="text-align: center;"><span class="container">
+
+
+
+    <!-- Row 1 - Canvas -->
+    <div id="row1">
+
+        <canvas id="canvas" width="500", height="500">Your browser doesn't support canvas</canvas>
+
+    </div>
+
+
+
+    <!-- Row 2 - Input Boxes -->
+    <div id="row2">
+
+
+        <!-- Clear Board -->
+        <div id="box">
+            <input type="checkbox" id="clearBoard" checked="true">
+            <label for="clearBoard">Clear Board</label>
+        </div>
+
+        <br>
+
+
+        <!-- Ball Outlines -->
+        <div id="box">
+            <input type="checkbox" id="ballOutlines">
+            <label for="ballOutlines">Ball Outlines</label>
+        </div>
+
+        <br>
+
+
+        <!-- Ball Path -->
+        <div id="box">
+            <input type="checkbox" id="ballPath">
+            <label for="ballPath">Ball Path</label>
+        </div>
+
+        <br>
+
+
+        <!-- Random Bounce -->
+        <div id="box">
+            <label for="randomBounce">Random Bounce:</label>
+            <input type="number" id="randomBounce" min="0" max="100" value="1">
+        </div>
+
+        <br>
+
+
+        <!-- Speed -->
+        <div id="box" style="display:table;">
+    
+            <span style="display:table-cell; vertical-align:middle; padding-right: 10px; font-size: 25px;">Speed</span>
+
+            <span>
+                <label for="minSpeed">min:</label>
+                <input id="minSpeed" type="number" min="0" max="100" value="0"/>
+                    <br>
+                <label for="maxSpeed">max:</label>
+                <input id="maxSpeed" type="number" min="0" max="100" value="10"/>
+
+            </span>
+
+        </div>
+
+        <br>
+
+
+        <!-- Size -->
+        <div id="box" style="display:table;">
+    
+            <span style="display:table-cell; vertical-align:middle; padding-right: 10px; font-size: 25px;">Size</span>
+
+            <span>
+                <label for="minSize">min:</label>
+                <input id="minSize" type="number" min="0" max="100" value="0"/>
+                    <br>
+                <label for="maxSize">max:</label>
+                <input id="maxSize" type="number" min="0" max="100" value="10"/>
+
+            </span>
+
+        </div>   
+
+    </div>
+
+
+
+    <!-- Row 3 - Slider -->
+    <div id="row3">
+
+        <div style="text-align: left; padding: 10px;">
+            <label for="balls">Balls:</label>
+            <input id="balls" type="number" min="0" max="1000" value="10"/>
+        </div>
+
+        <input id="slider" type="range" min="0" max="1000" value="10"/>
+
+        <p id="fruit"></p>
+
+    </div>
+
+
+
+
+</span></div>
+
+</body>
+</html>
