@@ -1,7 +1,13 @@
 const randrange = (min, max) => Math.floor(Math.random() * ((max + 1) - min) + min);
 
+const debug = false;
+
 // Let varibles be in the outer scope
-let width, height, ballAmount, speed, size, ctx;
+let width, height, ctx, speed, size;
+
+// How much the speed/size can differ from base value
+const speedDiffer = 5;
+const sizeDiffer = 5;
 
 const colors = ["#ff4a4a", "#ff954a", "#ffe44a", "#b1ff4a", "#3dff51", "#3dffbe", "#3dffff", "#3dabff", "#322bff", "#a72bff", "#ed2bff", "#ff2bb5", "#ff2b60"];
 
@@ -12,51 +18,60 @@ function updateSlider(num) { slider.value = ballsInput.value; }
 function updateInput(num) { ballsInput.value = slider.value; }
 
 
+
 // Init function
 function init() {
     const canvas = document.getElementById("canvas");
-    width = canvas.width;
-    height = canvas.height;
-
-    // Setup speed
-    const speedMin = document.getElementById("speedMin");
-    const speedMax = document.getElementById("speedMax");
-    speed = { min: speedMin, max: speedMax };
-
-    // Setup size
-    const sizeMin = document.getElementById("sizeMin");
-    const sizeMax = document.getElementById("sizeMax");
-    size = { min: sizeMin, max: sizeMax };
-
-
+    width = canvas.width; height = canvas.height;
     ctx = canvas.getContext("2d");
+
+
+
+    // Get speed and size
+    const speedInput = document.getElementById("speed");
+    const sizeInput = document.getElementById("size");
+
+    speedInput.addEventListener("input", (event) => speed = parseInt(event.target.value, 10));
+    sizeInput.addEventListener("input", (event) => size = parseInt(event.target.value, 10));
+
+    speed = parseInt(speedInput.value, 10);
+    size = parseInt(sizeInput.value, 10);
+
 
     // Sync slider with number input
     const slider = document.getElementById("slider");
     const numberInput = document.getElementById("balls");
 
-    slider.addEventListener("input", (e) => numberInput.value = e.target.value);
-    numberInput.addEventListener("input", (e) => slider.value = e.target.value);
+    slider.addEventListener("input", (event) => numberInput.value = event.target.value);
+    numberInput.addEventListener("input", (event) => slider.value = event.target.value);
 
 
-    // Main loop
-    setInterval(() => {
 
+
+    // Update amount of balls
+    const updateBalls = () => {
         if (slider.value !== balls.length) {
             if (balls.length > slider.value) for (let i = 0; i < balls.length - slider.value; i++) balls.shift();
             else for (let i = 0; i < slider.value - balls.length; i++) new Ball();
         }
+    };
 
+
+
+    // Main loop
+    setInterval(() => {
+        updateBalls();
         balls.forEach((ball) => ball.move());
         draw();
-    }, 50);
+    }, 10);
 }
 
 
-// Update canvas
-const draw = () => {
 
-    // Clear board before drawing new balls
+// Update canvas
+function draw() {
+
+    // Clear canvas before drawing new balls
     const clearBoard = document.getElementById("clearBoard");
     if (clearBoard.checked) ctx.clearRect(0, 0, width, height);
 
@@ -66,7 +81,6 @@ const draw = () => {
         ctx.beginPath();
         ctx.arc(ball.x, ball.y, ball.size, Math.PI * 2, false);
 
-        // Fill ball with color
         ctx.fillStyle = ball.color;
         ctx.fill();
 
@@ -93,34 +107,47 @@ const draw = () => {
         }
 
 
-        // Display velocity
-        ctx.beginPath();
-        ctx.fillStyle = "#000000";
-        ctx.font = `${ball.size / 2}px Comic Sans MS`;
-        ctx.textAlign = "center";
-        // ctx.fillText(`x${ball.xvel}, y${ball.yvel}`, ball.x, ball.y + 5);
+        // Debug
+        if (debug) {
+            document.getElementById("debug").innerHTML = [
+                `Balls: ${balls.length}`,
+            ].join("\n");
 
+            // Display velocity of each ball
+            ctx.beginPath();
+            ctx.fillStyle = "#000000";
+            ctx.font = `${ball.size / 2}px Andale Mono, monospace`;
+            ctx.textAlign = "center";
+            ctx.fillText(`x${ball.xvel}, y${ball.yvel}`, ball.x, ball.y + 5);
+        }
     });
-};
+}
+
 
 
 // Ball class
 class Ball {
     constructor() {
-        this.size = randrange(size.min, size.max);
+
+        // Set size
+        this.size = randrange(size - sizeDiffer, size + sizeDiffer);
         this.color = colors[Math.floor(Math.random() * colors.length)];
 
+        // Set position to random area
         this.x = randrange(this.size, width - this.size);
         this.y = randrange(this.size, height - this.size);
 
-        const xspeed = randrange(speed.min, speed.max);
-        const yspeed = randrange(speed.min, speed.max);
+        // Set speed
+        const xspeed = randrange(speed - speedDiffer, speed + speedDiffer);
+        const yspeed = randrange(speed - speedDiffer, speed + speedDiffer);
 
         this.xvel = Math.random() < 0.5 ? xspeed : -Math.abs(xspeed);
         this.yvel = Math.random() < 0.5 ? yspeed : -Math.abs(yspeed);
 
+        // Add to the array
         balls.push(this);
     }
+
 
     move() {
 
@@ -132,8 +159,8 @@ class Ball {
 
         // Make sure velocity is between it's min and max and if not set it to it's min/max
         const checkVel = (vel) => {
-            if (Math.abs(vel) < speed.min) return vel < 0 ? -Math.abs(speed.min) : Math.abs(speed.min);
-            if (Math.abs(vel) > speed.max) return vel < 0 ? -Math.abs(speed.max) : Math.abs(speed.max);
+            if (Math.abs(vel) < speed - speedDiffer) return vel < 0 ? -Math.abs(speed - speedDiffer) : Math.abs(speed - speedDiffer);
+            if (Math.abs(vel) > speed + speedDiffer) return vel < 0 ? -Math.abs(speed + speedDiffer) : Math.abs(speed + speedDiffer);
         };
 
         this.xvel = checkVel(this.xvel) ? checkVel(this.xvel) : this.xvel;
@@ -141,8 +168,8 @@ class Ball {
 
 
         // Move x and y position
-        this.x += this.xvel;
-        this.y += this.yvel;
+        this.x += this.xvel / 8;
+        this.y += this.yvel / 8;
 
 
         // Check if ball is past right or left wall
@@ -178,4 +205,13 @@ class Ball {
             : invert(this.yvel) - randrange(0, randomBounce);
         }
     }
+}
+
+
+
+// Reset balls
+function resetBalls() {
+    const ballAmount = balls.length;
+    for (let i = 0; i < ballAmount; i++) balls.shift();
+    for (let i = 0; i < ballAmount; i++) new Ball();
 }

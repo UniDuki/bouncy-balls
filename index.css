@@ -13,14 +13,18 @@ p {
     padding: 0px;
 }
 
+input[type="number"] { width: 37px; }
 
 
-#row1 {
+
+#board {
     height: 500px;
     background: #9595af;
 }
 
-#row2 {
+#buttons { padding: 5px; border-top: #3a3a42 solid 10px; }
+
+#boxes {
     column-count: 2;
     text-align: left;
 
@@ -30,16 +34,7 @@ p {
     border-bottom: #3a3a42 solid 10px;
 }
 
-#row3 { padding: 5px; }
-
-
-
-#randomBounce { width: 37px; }
-
-#balls {
-    width: 37px;
-    text-align: left;
-}
+#ballsSlider { padding: 5px; }
 
 #box {
     padding: 10px;

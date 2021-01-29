@@ -7,17 +7,17 @@
     
     <link rel="stylesheet" href="index.css">
 
-    <script src="index.js"></script>
+    
 
 </head>
 <body onLoad="init();">
 
+<script src="index.js"></script>
+
 <div style="text-align: center;"><span class="container">
 
-
-
     <!-- Row 1 - Canvas -->
-    <div id="row1">
+    <div id="board">
 
         <canvas id="canvas" width="500", height="500">Your browser doesn't support canvas</canvas>
 
@@ -25,14 +25,22 @@
 
 
 
-    <!-- Row 2 - Input Boxes -->
-    <div id="row2">
+    <!-- Debug -->
+    <p id="debug"></p>
 
+    <div id="buttons" style="text-align: left;">
+        <button onclick="resetBalls()">Reset Balls</button>
+    </div>
+
+
+
+    <!-- Input Boxes -->
+    <div id="boxes">
 
         <!-- Clear Board -->
         <div id="box">
             <input type="checkbox" id="clearBoard" checked="true">
-            <label for="clearBoard">Clear Board</label>
+            <label for="clearBoard">Clear Screen</label>
         </div>
 
         <br>
@@ -66,37 +74,29 @@
 
 
         <!-- Speed -->
-        <div id="box" style="display:table;">
+        <div id="box"">
     
-            <span style="display:table-cell; vertical-align:middle; padding-right: 10px; font-size: 25px;">Speed</span>
+            <label for="speed">Speed:&nbsp</label>
+            <input id="speed" type="number" min="1" max="100" value="5"/>
+  
+                <br>
 
-            <span>
-                <label for="minSpeed">min:</label>
-                <input id="minSpeed" type="number" min="0" max="100" value="0"/>
-                    <br>
-                <label for="maxSpeed">max:</label>
-                <input id="maxSpeed" type="number" min="0" max="100" value="10"/>
+            <label for="speed">Differ:</label>
+            <input id="speed" type="number" min="0" max="100" value="5"/>
 
-            </span>
-
-        </div>
+        </div> 
 
         <br>
 
 
         <!-- Size -->
-        <div id="box" style="display:table;">
+        <div id="box">
     
-            <span style="display:table-cell; vertical-align:middle; padding-right: 10px; font-size: 25px;">Size</span>
-
-            <span>
-                <label for="minSize">min:</label>
-                <input id="minSize" type="number" min="0" max="100" value="0"/>
-                    <br>
-                <label for="maxSize">max:</label>
-                <input id="maxSize" type="number" min="0" max="100" value="10"/>
-
-            </span>
+            <label for="size">Size: &nbsp</label>
+            <input id="size" type="number" min="1" max="100" value="20"/>
+                <br>
+            <label for="speed">Differ:</label>
+            <input id="speed" type="number" min="0" max="100" value="5"/>
 
         </div>   
 
@@ -104,17 +104,15 @@
 
 
 
-    <!-- Row 3 - Slider -->
-    <div id="row3">
+    <!-- Slider -->
+    <div id="ballsSlider">
 
         <div style="text-align: left; padding: 10px;">
             <label for="balls">Balls:</label>
-            <input id="balls" type="number" min="0" max="1000" value="10"/>
+            <input id="balls" type="number" min="0" max="200" value="10"/>
         </div>
 
-        <input id="slider" type="range" min="0" max="1000" value="10"/>
-
-        <p id="fruit"></p>
+        <input id="slider" type="range" min="0" max="200" value="10"/>
 
     </div>
 
