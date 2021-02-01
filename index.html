@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bounce!</title>
     
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css"/>
 
-    
+    <link rel="shortcut icon" href="ball-logo.ico"/>
 
 </head>
 <body onLoad="init();">
 
 <script src="index.js"></script>
 
-<div style="text-align: center;"><span class="container">
+<div class="flex-container">
 
-    <!-- Row 1 - Canvas -->
+
+
+    <!-- Stats -->
+    <div id="stats">
+
+        <p id="debug"></p>
+
+    </div>
+
+
+    
+    <!-- Board -->
     <div id="board">
 
         <canvas id="canvas" width="500", height="500">Your browser doesn't support canvas</canvas>
@@ -25,101 +36,133 @@
 
 
 
-    <!-- Debug -->
-    <p id="debug"></p>
-
+    <!-- Buttons -->
     <div id="buttons" style="text-align: left;">
+
         <button onclick="resetBalls()">Reset Balls</button>
+
+        <button onclick="pause()" id="pause">Pause</button>
+
     </div>
 
 
 
-    <!-- Input Boxes -->
-    <div id="boxes">
+    <!-- Options -->
+    <div id="options" class="row">
 
-        <!-- Clear Board -->
-        <div id="box">
-            <input type="checkbox" id="clearBoard" checked="true">
-            <label for="clearBoard">Clear Screen</label>
+        <!-- Options Column 1 -->
+        <div class="column">
+        
+            
+            <!-- Clear Board -->
+            <div id="option">
+                <input type="checkbox" id="clearBoard" checked="true">
+                <label for="clearBoard">Clear Screen</label>
+            </div>
+
+
+
+            <!-- Ball Outlines -->
+            <div id="option">
+                <input type="checkbox" id="ballOutlines">
+                <label for="ballOutlines">Ball Outlines</label>
+            </div>
+
+
+
+            <!-- Ball Path -->
+            <div id="option">
+                <input type="checkbox" id="ballPath">
+                <label for="ballPath">Ball Path</label>
+            </div>
+
+
+            
+            <!-- Palletes -->
+            <div id="option">
+                <label for="palletes">Pallete:</label>
+                    
+                <select id="palletes">
+                    <option value="light">Light</option>
+                    <option value="grey">Grey</option>
+                    <option value="fire">Fire</option>
+                    <option value="sunset">Sunset</option>
+                    <option value="sweet">Sweet</option>
+                </select>
+            </div> 
+
+
         </div>
 
-        <br>
 
 
-        <!-- Ball Outlines -->
-        <div id="box">
-            <input type="checkbox" id="ballOutlines">
-            <label for="ballOutlines">Ball Outlines</label>
-        </div>
-
-        <br>
+        <!-- Options Column 2 -->
+        <div class="column">
 
 
-        <!-- Ball Path -->
-        <div id="box">
-            <input type="checkbox" id="ballPath">
-            <label for="ballPath">Ball Path</label>
-        </div>
 
-        <br>
+            <!-- Speed -->
+            <div id="option" class="row">
+        
+                <div class="column">
+                    <label for="speed">Speed:</label>
+                    <label for="speedDiffer">Speed Differ:</label>
+                </div>
+
+                <div class="column">
+                    <input id="speed" type="number" min="1" max="100" value="5"/>
+                    <input id="speedDiffer" type="number" min="0" max="100" value="5"/>
+                </div>
+
+            </div> 
 
 
-        <!-- Random Bounce -->
-        <div id="box">
-            <label for="randomBounce">Random Bounce:</label>
-            <input type="number" id="randomBounce" min="0" max="100" value="1">
-        </div>
+            
+            <!-- Size -->
+            <div id="option" class="row">
+        
+                <div class="column">
+                    <label for="size">Size:</label>
+                    <label for="sizeDiffer">Size Differ:</label>
+                </div>
 
-        <br>
+                <div class="column">
+                    <input id="size" type="number" min="1" max="100" value="5"/>
+                    <input id="sizeDiffer" type="number" min="0" max="100" value="5"/>
+                </div>
 
+            </div> 
 
-        <!-- Speed -->
-        <div id="box"">
     
-            <label for="speed">Speed:&nbsp</label>
-            <input id="speed" type="number" min="1" max="100" value="5"/>
-  
-                <br>
+            <!-- Random Bounce -->
+            <div id="option">
+                <label for="randomBounce">Random Bounce:</label>
+                <input type="number" id="randomBounce" min="0" max="100" value="1">
+            </div>
 
-            <label for="speed">Differ:</label>
-            <input id="speed" type="number" min="0" max="100" value="5"/>
-
-        </div> 
-
-        <br>
-
-
-        <!-- Size -->
-        <div id="box">
+        </div>
     
-            <label for="size">Size: &nbsp</label>
-            <input id="size" type="number" min="1" max="100" value="20"/>
-                <br>
-            <label for="speed">Differ:</label>
-            <input id="speed" type="number" min="0" max="100" value="5"/>
-
-        </div>   
-
     </div>
 
 
 
     <!-- Slider -->
-    <div id="ballsSlider">
+    <div id="slider-container">
 
         <div style="text-align: left; padding: 10px;">
             <label for="balls">Balls:</label>
-            <input id="balls" type="number" min="0" max="200" value="10"/>
+            <input id="balls" type="number" min="0" max="250" value="10"/>
         </div>
 
-        <input id="slider" type="range" min="0" max="200" value="10"/>
+        <div style="text-align: center;">
+            <input id="slider" type="range" min="0" max="250" value="10"/>
+        </div>
+        
 
     </div>
 
 
 
-
-</span></div>
-
+</div>
 </body>
 </html>
